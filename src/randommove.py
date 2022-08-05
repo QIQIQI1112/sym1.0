@@ -26,9 +26,9 @@ class AtomRandomMove:
             center_shift += atoms_move
             for i in range(3):
                 center_shift[i] = round(center_shift[i], 8)
-        final_position = self.initial_position + atoms_move
+            final_position = self.initial_position + atoms_move
         
-        if rigid_or_single == 'single':
+        elif rigid_or_single == 'single':
             atom_amount = len(self.initial_position)
             atoms_move = np.zeros((atom_amount, 3))
             for i in range(atom_amount):
@@ -51,5 +51,5 @@ class AtomRandomMove:
                     shift[i][j] = round(shift[i][j], 8)
                 atoms_move[i] = atoms_move_single
                 final_position = self.initial_position + atoms_move
-        
+               
         return final_position

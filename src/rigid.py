@@ -80,7 +80,7 @@ class Tetrahedron:
         site_fin = (site_ori / 1.73205) * self.bond_len
         return site_fin
     
-    def center(atom_positions):
+    def center(self, atom_positions):
         center_position = atom_positions[0]
         return center_position
 

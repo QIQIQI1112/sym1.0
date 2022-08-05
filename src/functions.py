@@ -20,6 +20,8 @@ def temp_algorithm(algorithm, temp_ini, script_count):
     current_temp = 0
     if algorithm == 'normal':
         current_temp = temp_ini / math.log(script_count)
+    if algorithm == 'fast':
+        current_temp = temp_ini * (0.99 ** script_count)
     return current_temp
 
 
@@ -398,6 +400,7 @@ class WriteLog:
 
     def write_script_count(self):
         log_path = self.output_path + '/script_count'
+        os.chdir(self.output_path)
         script1 = os.path.isfile(log_path)
         script = str(script1)
         if script == 'False':
@@ -410,14 +413,18 @@ class WriteLog:
         with open('script_count', 'w') as scrip_write:
             scrip_write.truncate(0)
             scrip_write.write(f'{script_count}')
+        return script_count
     
     def write_big_loop(self, script_count, internal_circulation):
         log_path = self.output_path + '/big_loop'
+        os.chdir(self.output_path)
         script1 = os.path.isfile(log_path)
         script = str(script1)
         if script == 'False':
             with open('big_loop', 'w') as scrip:
                 scrip.write('0')
+        print(f'script_count:{script_count}')
+        print(f'internal_circulation:{internal_circulation}')
         if script_count % internal_circulation == 0:
             with open('big_loop', 'r') as scrip_read:
                 line_script = scrip_read.readlines()
@@ -426,6 +433,7 @@ class WriteLog:
             with open('big_loop', 'w') as scrip_write:
                 scrip_write.truncate(0)
                 scrip_write.write(f'{script_count}')
+        return script_count
 
 
 def read_energy(keyword_file):
@@ -481,14 +489,15 @@ def setup_file_copy(my_cwd, sym_no, i, n):
     shutil.copy('vasp.sub', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax')
 
     shutil.copy('functions.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('interprocess.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('mc.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('metropolis.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('rigiddata.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('symdata.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('symdata.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('interprocess.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('mc.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('metropolis.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('rigid.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('symdata.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    
     shutil.copy('INPUT', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('relaxafter.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('firststructure.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('vasp2.sub', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
-    # shutil.copy('readinginput.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('structureupdate.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('vasp2.sub', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('readinginput.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+    shutil.copy('randommove.py', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}')
+
