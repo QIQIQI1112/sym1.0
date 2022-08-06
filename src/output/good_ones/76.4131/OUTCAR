@@ -23347,7 +23347,7 @@ WARNING in EDDRMM: call to ZHEGV failed, returncode =   6  3     10
   ---------------------------------------------------
   free  energy   TOTEN  =       -77.41312892 eV
 
-  energy  without entropy=      -77.41312892  energy(sigma->0) =      -78.41312892
+  energy  without entropy=      -77.41312892  energy(sigma->0) =      -76.41312892
  
  d Force =-0.4101281E-05[-0.666E-04, 0.584E-04]  d Energy =-0.3994205E-04 0.358E-04
  d Force =-0.2356608E+00[-0.236E+00,-0.235E+00]  d Ewald  = 0.3508701E+00-0.587E+00

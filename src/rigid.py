@@ -9,6 +9,7 @@ Hexagonal: c a [210]
 cubic: a [111] [110]
 """
 from functions import *
+from readinginput import *
 
 def sym_to_lattice(sym_no):
     if 1 <= sym_no <= 2:
@@ -58,15 +59,25 @@ def rigid_select(rigid_type):
     return rigid_sele
 
 
-def random_rotation(sym_no, sym_element, angle_range):
-    lattice_type = sym_to_lattice(sym_no)
-    if lattice_type == 'Monoclinic':
-        pass
-    elif lattice_type == 'Orthorhombic':
-        if sym_element == ['m', 'y', 'z']:
-            random_angle = round(random.uniform(0, angle_range), 0)
-            r_matrix = rotation_matrix([1, 0, 0], random_angle)
-    return r_matrix
+class rigid_rotation:
+    def __init__(self, positions, center):
+        self.positions = positions
+        self.center = center
+
+    def random_rotation(self, sym_no, sym_element, angle_range):
+        lattice_type = sym_to_lattice(sym_no)
+        random_angle = round(random.uniform(-angle_range, angle_range), 0)
+        if lattice_type == 'Monoclinic':
+            pass
+        elif lattice_type == 'Orthorhombic':
+            if sym_element == ['m', 'y', 'z']:
+                r_matrix = rotation_matrix([1, 0, 0], random_angle)
+        
+        move_array = np.array([0, 0, 0]) - self.center
+        origin_positions = self.positions + move_array
+        rotate_positions = origin_positions @ r_matrix
+        final_positions = rotate_positions - move_array
+        return final_positions
 
 
 class Tetrahedron:

@@ -37,10 +37,14 @@ compound = [*compound_rigid, *(compound_single_atom * single_Atom)]
 
 # wyckoff position
 wyckoff_position_rigid = sg[f'sg_{sym_no}'][f's{wyckoff_rigid}'][2]
+wyckoff_element_rigid = sg[f'sg_{sym_no}'][f's{wyckoff_rigid}'][1]
 
 # current temp
 print(f'temp_update:{temp_update}')
 temp = temp_algorithm(temp_update, temp_star, big_loop)
+
+# generate a rigid class for center method
+rigid_type_class = rigid_select(rigid_type)(1.0, 1.0)
 
 close_dis_check = 'no'
 print('looking for new atom positions...')
@@ -53,7 +57,8 @@ while close_dis_check != 'yes':
         rigid_after_move[i] = image_select
     
     # rotation
-    rigid_after_rotation = rigid_after_move.copy()
+    rigid_center = rigid_type_class.center(rigid_after_move)
+    rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 15)
     # single atom move
     single_after_move = AtomRandomMove(single_array).symmetry_restricted('single', step_update, temp, wyckoff_position_single)
 

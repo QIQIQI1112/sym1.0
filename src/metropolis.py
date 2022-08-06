@@ -4,7 +4,7 @@ from readinginput import *
 root_path = os.getcwd()
 trail_path = root_path +'/trail'
 output_path = root_path +'/output'
-log_path = root_path +'/log'
+log_path = output_path +'/log'
 os.chdir(trail_path)
 
 # get energy from outcar and outcar_ref

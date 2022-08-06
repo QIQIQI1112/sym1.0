@@ -70,12 +70,6 @@ def move_atoms_into_box(atom_positions, cell):
     return atom_positions_car
 
 
-def move_rigid_to_origin(atom_positions, rigid_center):
-    move_array = np.array([0, 0, 0]) - rigid_center
-    final_positions = atom_positions + move_array
-    return final_positions
-
-
 def rotation_matrix(axis, angle):
     # make sure axis is unit vector
     if axis[0]**2 + axis[1]**2 + axis[2]**2 != 1.0:
