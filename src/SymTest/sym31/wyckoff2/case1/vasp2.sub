@@ -33,7 +33,7 @@ do
 		mpirun vasp_std
 		echo "relax done"
 		cd ..
-		python3.8 < strucutreupdate.py
+		python3.8 < structureupdate.py
 		cd trail
 		mpirun vasp_std
 		cp POSCAR POSCAR_ref

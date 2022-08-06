@@ -12,7 +12,7 @@ def step_algorithm(algorithm, temp):
     if algorithm == 'normal':
         s = np.random.normal(0, temp, 1)
         shift_current_1 = float(s[0])
-        shift_current = abs(shift_current_1)
+        shift_current = shift_current_1
     return shift_current
 
 
