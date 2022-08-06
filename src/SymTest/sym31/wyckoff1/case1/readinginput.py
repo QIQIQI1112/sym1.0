@@ -24,11 +24,11 @@ star = float(read_file('INPUT', 'step_ini')[0])
 end = float(read_file('INPUT', 'step_fin')[0])
 temp_star = float(read_file('INPUT', 'temp_ini')[0])
 step_update = read_file('INPUT', 'step_algorithm')[0]
-temp_update = read_file('INPUT', 'step_algorithm')[0]
+temp_update = read_file('INPUT', 'temp_algorithm')[0]
 step_number = int(read_file('INPUT', 'step_number')[0])
 rigid_type_input = read_file('INPUT', 'rigid_type')[0]
 single_sym_restricted = int(read_file('INPUT', 'single_sym_restricted')[0])
-internal_circulation = int(read_file('INPUT', 'internal_circulation')[0])
+internal_circulation = float(read_file('INPUT', 'internal_circulation')[0])
 debug = int(read_file('INPUT', 'debug')[0])
 
 cwd = os.getcwd()

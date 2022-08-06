@@ -2,8 +2,9 @@
 from rigid import *
 
 class AtomRandomMove:
-    def __init__(self, initial_position):
+    def __init__(self, initial_position, cell):
        self.initial_position = initial_position
+       self.cell = cell
     
     def symmetry_restricted(self, rigid_or_single, algorithm, temp, wyckoff_position, *args):
         if rigid_or_single == 'rigid':
@@ -26,7 +27,8 @@ class AtomRandomMove:
             center_shift += atoms_move
             for i in range(3):
                 center_shift[i] = round(center_shift[i], 8)
-            final_position = self.initial_position + atoms_move
+            final_position1 = self.initial_position + atoms_move
+            final_position = move_atoms_into_box(final_position1, self.cell)
         
         elif rigid_or_single == 'single':
             atom_amount = len(self.initial_position)
@@ -50,6 +52,7 @@ class AtomRandomMove:
                 for j in range(3):
                     shift[i][j] = round(shift[i][j], 8)
                 atoms_move[i] = atoms_move_single
-                final_position = self.initial_position + atoms_move
+                final_position1 = self.initial_position + atoms_move
+                final_position = move_atoms_into_box(final_position1, self.cell)
                
         return final_position

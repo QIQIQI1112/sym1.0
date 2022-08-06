@@ -7,14 +7,14 @@ root_path = os.getcwd()
 trail_path = root_path +'/trail'
 
 # output file
-path_output = root_path +'/output'
-isfile1 = os.path.isfile(path_output)
+output_path = root_path +'/output'
+isfile1 = os.path.isdir(output_path)
 isfile = str(isfile1)
 if isfile == 'False':
     os.mkdir('output')
 
 # log
-log = WriteLog(path_output)
+log = WriteLog(output_path)
 script_count = log.write_script_count()
 big_loop = log.write_big_loop(script_count, internal_circulation)
 
@@ -37,9 +37,14 @@ compound = [*compound_rigid, *(compound_single_atom * single_Atom)]
 
 # wyckoff position
 wyckoff_position_rigid = sg[f'sg_{sym_no}'][f's{wyckoff_rigid}'][2]
+wyckoff_element_rigid = sg[f'sg_{sym_no}'][f's{wyckoff_rigid}'][1]
 
 # current temp
+print(f'temp_update:{temp_update}')
 temp = temp_algorithm(temp_update, temp_star, big_loop)
+
+# generate a rigid class for center method
+rigid_type_class = rigid_select(rigid_type)(1.0, 1.0)
 
 close_dis_check = 'no'
 print('looking for new atom positions...')
@@ -48,11 +53,12 @@ while close_dis_check != 'yes':
     # image select
     rigid_after_move = rigid_after_move1.copy()
     for i in range(1, rigid_atom):
-        image_select = AtomImage(rigid_after_move1, cell_poscar ).close_image_position(rigid_after_move1[0])
+        image_select = AtomImage(rigid_after_move1[i], cell_poscar).close_image_position(rigid_after_move1[0])
         rigid_after_move[i] = image_select
     
     # rotation
-    rigid_after_rotation = rigid_after_move.copy()
+    rigid_center = rigid_type_class.center(rigid_after_move)
+    rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 15)
     # single atom move
     single_after_move = AtomRandomMove(single_array).symmetry_restricted('single', step_update, temp, wyckoff_position_single)
 
@@ -71,5 +77,3 @@ while close_dis_check != 'yes':
     write_poscar(system_transform.positions, compound, rigid_muti, ratio, cell_poscar)
     write_system_initial(system_after_move)
     os.chdir(root_path)
-
-    print(f'current step : {step_update}')

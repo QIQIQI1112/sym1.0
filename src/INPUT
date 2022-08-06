@@ -18,5 +18,5 @@ step_algorithm = normal
 temp_algorithm = fast
 step_ini = 0.3
 step_fin = 0.01
-temp_ini = 1.0
+temp_ini = 2.0
 temp_fin = 0.5

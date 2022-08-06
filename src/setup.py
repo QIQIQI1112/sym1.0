@@ -91,7 +91,7 @@ if trail_len != 0:
                 # sim box
                 sim_box = initial_cell(box_type, total_atom, density_adjust)
                 # generate rigid body
-                rigid_generate = rigid(sym_no, bond).atoms_position() @ rigid(sym_no, bond).rotaiton_matrix(wyckoff_sym) @ random_rotation(sym_no, wyckoff_sym, 360.0)
+                rigid_generate = rigid(sym_no, bond).atoms_position() @ rigid(sym_no, bond).rotaiton_matrix(wyckoff_sym) @ setup_random_rotation(sym_no, wyckoff_sym, 360.0)
                 # move rigid to wyckoff position
                 rigid_initial = move_rigid_to_wyckoff(rigid_generate, wyckoff_rigid, rigid_type, sim_box)
                 # generate single atoms

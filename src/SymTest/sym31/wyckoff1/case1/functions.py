@@ -20,6 +20,8 @@ def temp_algorithm(algorithm, temp_ini, script_count):
     current_temp = 0
     if algorithm == 'normal':
         current_temp = temp_ini / math.log(script_count)
+    if algorithm == 'fast':
+        current_temp = temp_ini * (0.99 ** script_count)
     return current_temp
 
 
@@ -66,12 +68,6 @@ def move_atoms_into_box(atom_positions, cell):
                     atom_positions_dir[i][j] += 1.0
     atom_positions_car = direct_cartesian_transform(atom_positions_dir, cell, 'DtoC')
     return atom_positions_car
-
-
-def move_rigid_to_origin(atom_positions, rigid_center):
-    move_array = np.array([0, 0, 0]) - rigid_center
-    final_positions = atom_positions + move_array
-    return final_positions
 
 
 def rotation_matrix(axis, angle):
@@ -398,6 +394,7 @@ class WriteLog:
 
     def write_script_count(self):
         log_path = self.output_path + '/script_count'
+        os.chdir(self.output_path)
         script1 = os.path.isfile(log_path)
         script = str(script1)
         if script == 'False':
@@ -410,14 +407,18 @@ class WriteLog:
         with open('script_count', 'w') as scrip_write:
             scrip_write.truncate(0)
             scrip_write.write(f'{script_count}')
+        return script_count
     
     def write_big_loop(self, script_count, internal_circulation):
         log_path = self.output_path + '/big_loop'
+        os.chdir(self.output_path)
         script1 = os.path.isfile(log_path)
         script = str(script1)
         if script == 'False':
             with open('big_loop', 'w') as scrip:
                 scrip.write('0')
+        print(f'script_count:{script_count}')
+        print(f'internal_circulation:{internal_circulation}')
         if script_count % internal_circulation == 0:
             with open('big_loop', 'r') as scrip_read:
                 line_script = scrip_read.readlines()
@@ -426,6 +427,7 @@ class WriteLog:
             with open('big_loop', 'w') as scrip_write:
                 scrip_write.truncate(0)
                 scrip_write.write(f'{script_count}')
+        return script_count
 
 
 def read_energy(keyword_file):

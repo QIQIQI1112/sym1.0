@@ -11,11 +11,11 @@ dis_limit = 1.8
 vol_star = 3.0
 vol_end = 0.5
 step_number = 10000
-internal_circulation = 20
+internal_circulation = 50
 debug = 1
 
 step_algorithm = normal
-temp_algorithm = normal
+temp_algorithm = fast
 step_ini = 0.3
 step_fin = 0.01
 temp_ini = 1.0

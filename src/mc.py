@@ -49,20 +49,23 @@ rigid_type_class = rigid_select(rigid_type)(1.0, 1.0)
 close_dis_check = 'no'
 print('looking for new atom positions...')
 while close_dis_check != 'yes':
-    rigid_after_move1 = AtomRandomMove(rigid_array).symmetry_restricted('rigid', step_update, temp, wyckoff_position_rigid, rigid_type)
-    # image select
-    rigid_after_move = rigid_after_move1.copy()
-    for i in range(1, rigid_atom):
-        image_select = AtomImage(rigid_after_move1[i], cell_poscar).close_image_position(rigid_after_move1[0])
-        rigid_after_move[i] = image_select
-    
-    # rotation
-    rigid_center = rigid_type_class.center(rigid_after_move)
-    rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 15)
-    # single atom move
-    single_after_move = AtomRandomMove(single_array).symmetry_restricted('single', step_update, temp, wyckoff_position_single)
+    close_dis_check_2 = 'no'
+    while close_dis_check_2 != 'yes':
+        rigid_after_move1 = AtomRandomMove(rigid_array, cell_poscar).symmetry_restricted('rigid', step_update, temp, wyckoff_position_rigid, rigid_type)
+        # image select
+        rigid_after_move = rigid_after_move1.copy()
+        for i in range(1, rigid_atom):
+            image_select = AtomImage(rigid_after_move1[i], cell_poscar).close_image_position(rigid_after_move1[0])
+            rigid_after_move[i] = image_select
+        
+        # rotation
+        rigid_center = rigid_type_class.center(rigid_after_move)
+        rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 15)
+        # single atom move
+        single_after_move = AtomRandomMove(single_array, cell_poscar).symmetry_restricted('single', step_update, temp, wyckoff_position_single)
 
-    system_after_move = np.concatenate((rigid_after_rotation, single_after_move))
+        system_after_move = np.concatenate((rigid_after_rotation, single_after_move))
+        close_dis_check_2 = dis_check(system_after_move, cell_poscar, dis_limit)
     # CtoD
     system_after_move_dir = direct_cartesian_transform(system_after_move, cell_poscar, 'CtoD')
     system_after_move_tuple = []

@@ -23,7 +23,7 @@ cd ..
 
 for i in {1..10000}
 do
-	if (($i % 20 == 0))
+	if (($i % 50 == 0))
 	then
 		echo "relax..."
 		cd trail

@@ -34,6 +34,7 @@ def sym_to_lattice(sym_no):
 def move_rigid_to_wyckoff(initial_positions, wyckoff_positions, rigid_type, cell):
     wyckoff_move = np.array([0.0, 0.0, 0.0])
     random_wyckoff = np.array([0.0, 0.0, 0.0])
+    rigid_class = rigid_select(rigid_type)(1, 1.0)
     if wyckoff_positions[0] != 'x':
         random_wyckoff[0] = wyckoff_positions[0]
     elif wyckoff_positions[0] == 'x':
@@ -47,7 +48,7 @@ def move_rigid_to_wyckoff(initial_positions, wyckoff_positions, rigid_type, cell
     elif wyckoff_positions[2] == 'z':
         random_wyckoff[2] = round(random.uniform(0, 1), 3)
     random_wyckoff_car = direct_cartesian_transform(random_wyckoff, cell, 'DtoC')
-    rigid_center = rigid_select(rigid_type).center(initial_positions)
+    rigid_center = rigid_class.center(initial_positions)
     wyckoff_move = random_wyckoff_car - rigid_center
     final_positions = initial_positions + wyckoff_move
     return final_positions
@@ -78,6 +79,17 @@ class rigid_rotation:
         rotate_positions = origin_positions @ r_matrix
         final_positions = rotate_positions - move_array
         return final_positions
+
+
+def setup_random_rotation(sym_no, sym_element, angle_range):
+        lattice_type = sym_to_lattice(sym_no)
+        random_angle = round(random.uniform(-angle_range, angle_range), 0)
+        if lattice_type == 'Monoclinic':
+            pass
+        elif lattice_type == 'Orthorhombic':
+            if sym_element == ['m', 'y', 'z']:
+                r_matrix = rotation_matrix([1, 0, 0], random_angle)
+        return r_matrix
 
 
 class Tetrahedron:
