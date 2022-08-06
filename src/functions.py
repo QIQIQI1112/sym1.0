@@ -179,10 +179,9 @@ def sturcture_update(atom_in_rigid, system_initial, before_relax, after_relax, c
     atom_index = []
     for i in range(system_initial_atom_amount):
         for j in range(before_relax_atom_amount):
-            if abs(system_initial_inbox[i][0] - before_relax_inbox[j][0]) < 0.0001 and \
-               abs(system_initial_inbox[i][1] - before_relax_inbox[j][1]) < 0.0001 and \
-               abs(system_initial_inbox[i][2] - before_relax_inbox[j][2]) < 0.0001:
-               atom_index.append(j)
+            atom_image = AtomImage(before_relax_inbox[j], cell_before)
+            if atom_image.close_image_dis(system_initial_inbox[i]) < 0.001:
+                atom_index.append(j)
     for i in range(system_initial_atom_amount):
         system_initial_after[i] = after_relax[atom_index[i]]
     system_initial_after_car = direct_cartesian_transform(system_initial_after, cell_after, 'DtoC')
@@ -477,6 +476,7 @@ def setup_file_copy(my_cwd, sym_no, i, n):
     shutil.copy('vasp.sub', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/trail')
 
     shutil.copy('INCAR_relax', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax' + '/INCAR')
+    shutil.copy('system_initial', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax')
     shutil.copy('POSCAR', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax')
     shutil.copy('POTCAR', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax')
     shutil.copy('KPOINTS_relax', my_cwd + f'/sym{sym_no}' + f'/wyckoff{i + 1}' + f'/case{n + 1}' + '/relax' + '/KPOINTS')
