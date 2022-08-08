@@ -51,4 +51,7 @@ elif number_files == 11:
     file_sorted = sorted(file)
     shutil.rmtree(good_ones_relaxed_path + f'/{str(file_sorted[0])}')
 
+# relaxed vs script_count
+
+
 os.chdir(root_path)
