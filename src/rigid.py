@@ -68,8 +68,12 @@ class rigid_rotation:
     def random_rotation(self, sym_no, sym_element, angle_range):
         lattice_type = sym_to_lattice(sym_no)
         random_angle = round(random.uniform(-angle_range, angle_range), 0)
+        random_vector = np.random.rand(3)
+        random_unit_vector = random_vector / np.linalg.norm(random_vector)
+        # r_matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         if lattice_type == 'Monoclinic':
-            pass
+            if sym_element == ['1']:
+                r_matrix = rotation_matrix(random_unit_vector, random_angle)
         elif lattice_type == 'Orthorhombic':
             if sym_element == ['m', 'y', 'z']:
                 r_matrix = rotation_matrix([1, 0, 0], random_angle)
@@ -84,8 +88,12 @@ class rigid_rotation:
 def setup_random_rotation(sym_no, sym_element, angle_range):
         lattice_type = sym_to_lattice(sym_no)
         random_angle = round(random.uniform(-angle_range, angle_range), 0)
+        random_vector = np.random.rand(3)
+        random_unit_vector = random_vector / np.linalg.norm(random_vector)
+        # r_matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         if lattice_type == 'Monoclinic':
-            pass
+            if sym_element == ['1']:
+                r_matrix = rotation_matrix(random_unit_vector, random_angle)
         elif lattice_type == 'Orthorhombic':
             if sym_element == ['m', 'y', 'z']:
                 r_matrix = rotation_matrix([1, 0, 0], random_angle)
@@ -127,7 +135,7 @@ class Tetrahedron:
 
     def rotaiton_matrix(self, sym_element):
         lattice_type = sym_to_lattice(self.sym_no)
-        r_matrix = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
+        r_matrix = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         if lattice_type == 'Monoclinic':
             if sym_element == ['m']:
                 r_matrix = rotation_matrix([1, 0, 0], 45)

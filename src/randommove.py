@@ -56,3 +56,9 @@ class AtomRandomMove:
                 final_position = move_atoms_into_box(final_position1, self.cell)
                
         return final_position
+    
+
+# class cell_shape:
+#     def __init__(self, initial_position, cell):
+#        self.initial_position = initial_position
+#        self.cell = cell

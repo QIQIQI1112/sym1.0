@@ -415,7 +415,7 @@ class WriteLog:
         script = str(script1)
         if script == 'False':
             with open('big_loop', 'w') as scrip:
-                scrip.write('0')
+                scrip.write('1.0')
         print(f'script_count:{script_count}')
         print(f'internal_circulation:{internal_circulation}')
         with open('big_loop', 'r') as scrip_read:

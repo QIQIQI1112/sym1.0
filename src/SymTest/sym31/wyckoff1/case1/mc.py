@@ -48,6 +48,7 @@ rigid_type_class = rigid_select(rigid_type)(1.0, 1.0)
 
 close_dis_check = 'no'
 print('looking for new atom positions...')
+print(f'big loop : {big_loop}')
 while close_dis_check != 'yes':
     close_dis_check_2 = 'no'
     while close_dis_check_2 != 'yes':

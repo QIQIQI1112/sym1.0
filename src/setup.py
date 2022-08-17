@@ -90,10 +90,17 @@ if trail_len != 0:
             while dis_transform_return != 'yes':
                 # sim box
                 sim_box = initial_cell(box_type, total_atom, density_adjust)
+                # print(f'sim_box:{sim_box}')
                 # generate rigid body
                 rigid_generate = rigid(sym_no, bond).atoms_position() @ rigid(sym_no, bond).rotaiton_matrix(wyckoff_sym) @ setup_random_rotation(sym_no, wyckoff_sym, 360.0)
+                # print(f'position:{rigid(sym_no, bond).atoms_position()}')
+                # print(f'rotation:{rigid(sym_no, bond).rotaiton_matrix(wyckoff_sym)}')
+                # print(f'setup_rotation:{setup_random_rotation(sym_no, wyckoff_sym, 360.0)}')
+                # print(f'rigid_generate:{rigid_generate}')
+                # print('-----------------------')
                 # move rigid to wyckoff position
                 rigid_initial = move_rigid_to_wyckoff(rigid_generate, wyckoff_rigid, rigid_type, sim_box)
+                # print(f'rigid_initial:{rigid_initial}')
                 # generate single atoms
                 wyckoff_case = []
                 for j in range(single_no):
@@ -116,6 +123,8 @@ if trail_len != 0:
                     break
             print(f'count:{count}')
             print(f'density_adjust:{density_adjust}')
+            # print(f'sim_box:{sim_box}')
+            # print(f'system_initial_dir:{system_initial_dir}')
 
         # setup all input file 
         # write poscar and atom position before transform
