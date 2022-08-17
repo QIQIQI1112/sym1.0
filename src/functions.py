@@ -418,15 +418,15 @@ class WriteLog:
                 scrip.write('0')
         print(f'script_count:{script_count}')
         print(f'internal_circulation:{internal_circulation}')
+        with open('big_loop', 'r') as scrip_read:
+            line_script = scrip_read.readlines()
+            big_loop = float(line_script[0].split()[0])
         if script_count % internal_circulation == 0:
-            with open('big_loop', 'r') as scrip_read:
-                line_script = scrip_read.readlines()
-                script_count = float(line_script[0].split()[0])
-            script_count = script_count + 1
+            big_loop = big_loop + 1
             with open('big_loop', 'w') as scrip_write:
                 scrip_write.truncate(0)
-                scrip_write.write(f'{script_count}')
-        return script_count
+                scrip_write.write(f'{big_loop}')
+        return big_loop
 
 
 def read_energy(keyword_file):
