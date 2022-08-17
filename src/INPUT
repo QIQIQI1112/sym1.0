@@ -1,4 +1,4 @@
-sym_no = 7
+sym_no = 31
 rigid_type = Tetrahedron
 compound_rigid = P S S S S
 compound_single_atom = Li

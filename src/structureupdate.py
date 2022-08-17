@@ -53,8 +53,9 @@ elif number_files == 11:
 
 # relaxed vs script_count
 os.chdir(output_path)
-log = WriteLog(output_path)
-script_count = log.write_script_count()
+with open('script_count', 'r') as scrip_read:
+    line_script = scrip_read.readlines()
+    script_count = float(line_script[0].split()[0])
 with open('energy_relax', 'a') as en_relax:
     en_relax.write(f'{script_count}  {energy}' + '\n')
 

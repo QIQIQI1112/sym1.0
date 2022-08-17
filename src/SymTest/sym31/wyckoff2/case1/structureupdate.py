@@ -52,6 +52,11 @@ elif number_files == 11:
     shutil.rmtree(good_ones_relaxed_path + f'/{str(file_sorted[0])}')
 
 # relaxed vs script_count
-
+os.chdir(output_path)
+with open('script_count', 'r') as scrip_read:
+    line_script = scrip_read.readlines()
+    script_count = float(line_script[0].split()[0])
+with open('energy_relax', 'a') as en_relax:
+    en_relax.write(f'{script_count}  {energy}' + '\n')
 
 os.chdir(root_path)
