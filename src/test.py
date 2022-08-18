@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from readinginput import *
 from itertools import combinations, combinations_with_replacement
 
-temp = 0.9
+temp = 0.2
 energy = -75.22656373
 ref_energy = -77.40847807
 
@@ -21,5 +21,5 @@ y = step_algorithm('normal', temp)
 # print(v_hat)
 # norm_v_hat = (v_hat[0]**2 + v_hat[1]**2 + v_hat[2]**2)**(0.5)
 # print(f'norm_v_hat:{norm_v_hat}')
-print(x)
+# print(x)
 print(y)
