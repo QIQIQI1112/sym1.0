@@ -120,4 +120,9 @@ if debug == 1:
     os.chdir(trail_path)
     shutil.copy('POSCAR', output_path + f'/debug/POSCAR_{int(current_step)}')
 
+# # if the acceptance rate < 10% bigloop =+ 1
+# big_loop_log = WriteLog(output_path)
+# if accept_rate < 0.1:
+#     big_loop_plus = big_loop_log.write_big_loop_plus()
+
 os.chdir(root_path)

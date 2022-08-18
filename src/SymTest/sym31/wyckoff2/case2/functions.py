@@ -12,7 +12,7 @@ def step_algorithm(algorithm, temp):
     if algorithm == 'normal':
         s = np.random.normal(0, temp, 1)
         shift_current_1 = float(s[0])
-        shift_current = shift_current_1
+        shift_current = 0.1 * shift_current_1
     return shift_current
 
 
@@ -426,6 +426,23 @@ class WriteLog:
             with open('big_loop', 'w') as scrip_write:
                 scrip_write.truncate(0)
                 scrip_write.write(f'{big_loop}')
+        return big_loop
+    
+    def write_big_loop_plus(self):
+        log_path = self.output_path + '/big_loop'
+        os.chdir(self.output_path)
+        script1 = os.path.isfile(log_path)
+        script = str(script1)
+        if script == 'False':
+            with open('big_loop', 'w') as scrip:
+                scrip.write('0')
+        with open('big_loop', 'r') as scrip_read:
+            line_script = scrip_read.readlines()
+            big_loop = float(line_script[0].split()[0])
+        big_loop = big_loop + 1
+        with open('big_loop', 'w') as scrip_write:
+            scrip_write.truncate(0)
+            scrip_write.write(f'{big_loop}')
         return big_loop
 
 

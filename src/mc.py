@@ -61,7 +61,7 @@ while close_dis_check != 'yes':
         
         # rotation
         rigid_center = rigid_type_class.center(rigid_after_move)
-        rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 15)
+        rigid_after_rotation = rigid_rotation(rigid_after_move, rigid_center).random_rotation(sym_no, wyckoff_element_rigid, 10)
         # single atom move
         single_after_move = AtomRandomMove(single_array, cell_poscar).symmetry_restricted('single', step_update, temp, wyckoff_position_single)
 
