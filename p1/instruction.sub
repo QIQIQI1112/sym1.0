@@ -1,0 +1,8 @@
+!only works in P1 with PS4Li3 system
+
+rigid_no in INPUT is how many rigid body you want in cell
+step_algorithm and temp_algorithm works the same way as before
+
+run setup.py to get initial random structure
+got to SymTest and run sym1 on Foundary
+

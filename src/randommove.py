@@ -52,8 +52,8 @@ class AtomRandomMove:
                 for j in range(3):
                     shift[i][j] = round(shift[i][j], 8)
                 atoms_move[i] = atoms_move_single
-                final_position1 = self.initial_position + atoms_move
-                final_position = move_atoms_into_box(final_position1, self.cell)
+            final_position1 = self.initial_position + atoms_move
+            final_position = move_atoms_into_box(final_position1, self.cell)
                
         return final_position
     
