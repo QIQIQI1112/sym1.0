@@ -1,6 +1,8 @@
 !only works in P1 with PS4Li3 system
 
 rigid_no in INPUT is how many rigid body you want in cell
+change the second value in the 23rd line of vasp2.sub to how many steps you want for the strucute search
+for example change from (1..10000) to (1..20000)
 step_algorithm and temp_algorithm works the same way as before
 
 run setup.py to get initial random structure
